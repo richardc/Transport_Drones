@@ -275,7 +275,10 @@ end
 
 function request_depot:handle_offer(supply_depot, name, count)
 
-  if count < self:get_minimum_request_size() then return end
+  if count < self:get_minimum_request_size() then
+     self:show_fuel_alert({"low-supply", count, self:get_minimum_request_size()})
+     return
+  end
 
   if not self:can_spawn_drone() then return end
 
