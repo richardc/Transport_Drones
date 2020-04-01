@@ -138,6 +138,28 @@ end
 
 local road_network = {}
 
+local summarize_networks = function()
+  local networks = script_data.networks
+  for id, network in pairs(networks) do
+    for k, name in pairs ({"supply", "mining", "fuel"}) do
+      local depots = network[name]
+      if depots then
+        for k, depot in pairs (depots) do
+          game.print("[TD] network["..id.."]["..name.."]["..k.."] => "..serpent.line(depot))
+        end
+      end
+    end
+
+    if network.requesters then
+      for name, depots in pairs (network.requesters) do
+        for k, depot in pairs (depots) do
+          game.print("[TD] network["..id.."].requesters["..name.."]["..k.."] => "..serpent.line(depot))
+        end
+      end
+    end
+  end
+end
+
 road_network.add_node = function(surface, x, y)
 
   local surface_map = script_data.node_map[surface]
@@ -193,6 +215,7 @@ road_network.add_node = function(surface, x, y)
   end
 
   --game.print(table_size(script_data.networks))
+  summarize_networks()
 
 end
 
