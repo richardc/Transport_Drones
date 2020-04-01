@@ -56,6 +56,7 @@ function request_depot.new(entity)
     entity = entity,
     corpse = corpse,
     index = tostring(entity.unit_number),
+    name = "Request Depot "..tostring(entity.unit_number),
     node_position = {math.floor(corpse_position[1]), math.floor(corpse_position[2])},
     item = false,
     drones = {},
@@ -377,6 +378,8 @@ function request_depot:add_to_network()
   if not self.item then return end
   --self:say("Adding to network")
   self.network_id = road_network.add_request_depot(self, self.item)
+  self.name = "Request depot on network "..self.network_id
+  self.localised_name = "Request depot on network"..self.network_id
 end
 
 function request_depot:remove_from_network()
