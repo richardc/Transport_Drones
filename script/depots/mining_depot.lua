@@ -136,13 +136,13 @@ function mining_depot:on_removed()
 end
 
 function mining_depot:get_status_lines()
-  return {
-    {"supplying", serpent.line(self.to_be_taken)},
-    {"road-network-id", self.network_id}
-  }
+  local lines = {}
+  for item,level in pairs(self.entity.get_output_inventory().get_contents()) do
+    lines[#lines + 1] = {"supply-item", item, level}
+  end
+  lines[#lines + 1] = {"road-network-id", self.network_id}
+  return lines
 end
-
-
 
 local lib = {}
 
