@@ -395,6 +395,23 @@ function request_depot:on_removed()
   self.corpse.destroy()
 end
 
+function request_depot:get_status_lines()
+  if not self.item then
+    return {
+      {"requester-unconfigured"}
+    }
+  end
+
+  return {
+    {"request-item", self.item},
+    {"drone-status", self:get_active_drone_count(), self:get_drone_item_count()},
+    {"fuel-level", self:get_fuel_amount()},
+    {"stack-size", self:get_stack_size()},
+    {"minimum-stack-size", self:get_minimum_request_size()},
+    {"road-network-id", self.network_id}
+  }
+end
+
 local lib = {}
 
 lib.load = function(depot)
